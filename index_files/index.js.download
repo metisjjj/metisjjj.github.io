@@ -1,0 +1,224 @@
+/*
+	This is the main JavaScript file for the main index.cfm page located in the root
+*/
+
+// Read a page's GET URL variables and return them as an associative array.
+function getUrlVars()
+{
+	var vars = [], hash;
+	var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
+	for(var i = 0; i < hashes.length; i++)
+	{
+		hash = hashes[i].split('=');
+		vars.push(hash[0]);
+		vars[hash[0]] = hash[1];
+	}
+	return vars;
+}
+
+// this method will handle a forgot password click
+function ForgotPasswordClick() {
+	var email = $("#email").val();
+	if (email) {
+		$('#request_message').css("display","block");
+		$.ajax({
+			url: "/ForgotPassword.cfc?method=ForgotLoginCredentials",
+			data: { email: email, returnformat: "plain" },
+			success: function(result) {
+				//console.log("Success: " + result);
+
+				$('#request_message').html(result);
+
+			},
+			Error: function(result) {
+				//console.log("Error: " + result);
+				$('#request_message').html(result);
+			}
+		});
+	} else {
+
+	}
+}
+
+$(function() {
+   // $('.js-benefits, .js-form').hide();
+
+	var BENEFIT_TRIGGER = 'js-showBenefits';
+	var ACTIVE_BTN = 'btn_text_isActive';
+	$('.'+BENEFIT_TRIGGER).on('click', function(){
+		$(this).toggleClass(ACTIVE_BTN);
+		$('.js-benefits').slideToggle();
+		return false;
+	});
+
+	var FORM_TRIGGER = 'js-showForm-badcredentials';
+	$('.'+FORM_TRIGGER).on('click', function(){
+		$('.js-form-badcredentials').slideToggle();
+		return false;
+	});
+
+	var CLOSE_BTN = 'js-closeForm-badcredentials';
+	$('.'+CLOSE_BTN).on('click', function(){
+		$('.js-form-badcredentials').slideUp();
+		return false;
+	});
+
+	var FORM_TRIGGER_bad_session = 'js-showForm-session';
+	$('.'+FORM_TRIGGER_bad_session).on('click', function(){
+		$('.js-form-session').slideToggle();
+		return false;
+	});
+
+	var CLOSE_BTN_bad_session = 'js-closeForm-session';
+	$('.'+CLOSE_BTN_bad_session).on('click', function(){
+		$('.js-form-session').slideUp();
+		return false;
+	});
+
+	// trigger benefit click so it will display expanded on page load
+	$('.'+BENEFIT_TRIGGER).click();
+
+	// do we have an invalid login attempt?
+	var invalid = getUrlVars()["login"];
+	var LOGIN_CODE_IDS = {
+		failure: "loginError",
+		badsession: "sessionError",
+		magellantravel: "magellantravel",
+		cruiseplanners: "cruiseplanners",
+	};
+
+	$( '.' + LOGIN_CODE_IDS[invalid] ).show();
+
+	if ( $( '.' + LOGIN_CODE_IDS[invalid] ).is(':visible') ) {
+		toggleMobileLogin(); 
+		toggleLogin();
+		if ( 
+			$('.navmenu-button' ).is(':visible') 
+			&& 
+			$('.mobile-member-login').is(':visible')
+		) {
+			$('.navmenu-button' ).click();
+		}
+	}
+
+	// script to make the ultimate experience cruise, land and hotel boxes same size so buttons are lined up underneath
+	var currentTallest = 0,
+		currentRowStart = 0,
+		rowDivs = new Array(),
+		$el,
+		topPosition = 0;
+
+	$('.blocks').each(function() {
+		$el = $(this);
+		topPosition = $el.position().top;
+
+	   if (currentRowStart != topPosition) {
+		 // we just came to a new row.  Set all the heights on the completed row
+		 for (currentDiv = 0 ; currentDiv < rowDivs.length ; currentDiv++) {
+		   rowDivs[currentDiv].height(currentTallest);
+		 }
+		 // set the variables for the new row
+		 rowDivs.length = 0; // empty the array
+		 currentRowStart = topPosition;
+		 currentTallest = $el.height();
+		 rowDivs.push($el);
+	   } else {
+		 // another div on the current row.  Add it to the list and check if it's taller
+		 rowDivs.push($el);
+		 currentTallest = (currentTallest < $el.height()) ? ($el.height()) : (currentTallest);
+	  }
+
+	  // do the last row
+	   for (currentDiv = 0 ; currentDiv < rowDivs.length ; currentDiv++) {
+		 rowDivs[currentDiv].height(currentTallest);
+	   }
+ });
+
+
+});
+
+/* Desktop login form. */
+(function() {
+	$('.member_login').on('click', function() {
+		toggleLogin(); 
+	}); 
+})();
+
+function toggleLogin(){
+	var isOpen = $( '.member_login' ).hasClass( "open" ); 
+	if ( isOpen ) {
+		$('#login-form-container,#login-form-background').removeClass('in');
+		$('.member_login').removeClass('open');
+		isOpen = false;
+		return
+	}
+	$('.member_login').addClass('open');
+	$('#login-form-container,#login-form-background').addClass('in');
+	isOpen = true;
+}
+
+/* Mobile navmenu. */
+(function() {
+	var $NavMenuTrigger = $('.navmenu-button');
+	var $NavMenu = $('.navmenu-mobile');
+	var $Overlay;
+
+	$NavMenuTrigger.on('click', function() {
+		$NavMenu.addClass('in');
+
+		$Overlay = $('<div class="navmenu-overlay" />')
+			.on('click', function() {
+				$NavMenu.removeClass('in');
+				$(this).remove();
+			});
+		$('body').append( $Overlay );
+	});
+
+	/* Close when following a link. */
+	$NavMenu.find('a:not(#signature-travel-experts)').on('click', function() {
+		$NavMenu.removeClass('in');
+		$Overlay.remove();
+	});
+})();
+
+/* Mobile navmenu login. */
+(function() {
+	$('.mobile-member-login').on('click', function() {
+		toggleMobileLogin(); 
+	});
+})();
+
+function toggleMobileLogin(){
+	var isMobileLoginOpen = $( '.mobile-member-login' ).hasClass( "open" ); 
+	if ( isMobileLoginOpen ) {
+		$('.navmenu-mobile form').removeClass('in');
+		$('.mobile-member-login').removeClass('open');
+		isMobileLoginOpen = false;
+		return
+	}
+	$('.navmenu-mobile form').addClass('in');
+	$('.mobile-member-login').addClass('open');
+	isMobileLoginOpen = true;
+}
+
+/* Mobile navmenu Travel Experts "dropdown". */
+(function() {
+	var isOpen = false;
+	var $SigTravelExpertsButton = $('#signature-travel-experts');
+
+	$SigTravelExpertsButton.on('click', function() {
+		isOpen = $( '.member_login' ).hasClass( "open" ); 
+		if ( isOpen ) {
+			$('#find-a-travel-advisor').removeClass('in');
+			$('#create-your-ultimate-experience').removeClass('in');
+			$SigTravelExpertsButton.removeClass('open');
+			isOpen = false;
+			return
+		}
+
+		$('#find-a-travel-advisor').addClass('in');
+		$('#create-your-ultimate-experience').addClass('in');
+		$SigTravelExpertsButton.addClass('open');
+		isOpen = true;
+	});
+})();

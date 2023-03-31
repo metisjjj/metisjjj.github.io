@@ -1,0 +1,374 @@
+/*
+	Styles for SigNet index page.
+*/
+
+.navmenu-button {
+	padding: 9px 10px;
+	height: 40px;
+	margin-top: 8px;
+	margin-right: 15px;
+	margin-bottom: 8px;
+	background-color: transparent;
+	background-image: none;
+	border: 1px solid #ddd;;
+	border-radius: 1px;
+}
+
+.navmenu-button > span {
+	display: block;
+	width: 22px;
+	height: 2px;
+	border-radius: 1px;
+	background-color: #888;
+}
+
+.navmenu-button > span+span {
+	margin-top: 4px;
+}
+
+.navmenu-overlay {
+	position: fixed;
+	background-color: rgba(0,0,0,.7);
+	width: 100vw;
+	height: 100vh;
+	top: 0;
+}
+
+.navmenu-mobile {
+	position: fixed;
+	top: 0;
+	left: calc(-80% - 1px);
+	height: 111vh;
+	background-color: white;
+	z-index: 10;
+	border-right: 1px solid #88A;
+	width: 80%;
+	max-width: 25rem;
+
+	-webkit-transition-timing-function: ease;
+	-o-transition-timing-function: ease;
+	transition-timing-function: ease;
+	-webkit-transition-duration: .35s;
+	-o-transition-duration: .35s;
+	transition-duration: .35s;
+	-webkit-transition-property: left;
+	-o-transition-property: left;
+	transition-property: left;
+}
+
+.navmenu-mobile.in {
+	left: 0;
+}
+
+.navmenu-mobile > ul > li > a {
+	display: block;
+	text-align: left;
+	padding: 1rem;
+	border-bottom: 1px solid #888;
+	text-decoration: none;
+	text-transform: uppercase;
+}
+
+.navmenu-mobile > ul > li > a:hover {
+	background-color: #DDD;
+}
+
+.navmenu-mobile form {
+	overflow-y: hidden;
+	height: 0px;
+	padding: 0 1rem;
+}
+
+.navmenu-mobile form.in {
+	height: 350px;
+}
+
+.navmenu-mobile li.collapse {
+	overflow-y: hidden;
+	height: 0px;
+}
+
+.navmenu-mobile li.collapse.in {
+	overflow-y: visible;
+	height: 49px;
+}
+
+.navmenu-mobile .masthead-form-row {
+	margin: 1rem 0;
+}
+
+.navmenu-mobile .masthead-form-input {
+	width: 100%;
+}
+
+.mobile-member-login {
+	background-color: #1a73b3;
+	color: white;
+	border: 0;
+	width: 100%;
+	padding: 1rem;
+	font-size: 100%;
+	text-align: left;
+	cursor: pointer;
+	text-transform: uppercase;
+}
+
+
+.mobile-member-login:hover {
+	background-color: #0f5b92;
+}
+
+.mobile-member-login.open {
+	background-color: #0f5b92;
+}
+
+.masthead {
+	overflow: visible;
+}
+
+.caret {
+	display: inline-block;
+    width: 0;
+    height: 0;
+    margin-left: 2px;
+    vertical-align: middle;
+    border-top: 4px dashed;
+    border-top: 4px solid\9;
+    border-right: 4px solid transparent;
+    border-left: 4px solid transparent;
+}
+
+.masthead-container {
+	display: flex;
+	justify-content: space-between;
+	margin: 0 1rem;
+}
+
+.masthead-logo {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+
+.masthead-links {
+	display: flex; /* This works with IE 11! :yey: */
+	justify-content: space-between;
+	align-items: center;
+	margin: -1rem 0 0 -1rem;
+}
+
+.masthead-links > * {
+	margin: 1rem 0 0 1rem;
+}
+
+.masthead-links a.masthead-link {
+	display: none;
+}
+
+.masthead-links a.masthead-link, .masthead-links button  {
+	text-decoration: none;
+	font-size: 20px;
+	color: #323e48;
+	font-weight: 500;
+	font-family: "Helvetica Neue",Helvetica,Arial, sans serif;
+	text-transform: uppercase;
+}
+
+.masthead-links a.masthead-link:hover {
+	text-decoration: underline;
+}
+
+
+.collapse {
+	-webkit-transition-timing-function: ease;
+	-o-transition-timing-function: ease;
+	transition-timing-function: ease;
+	-webkit-transition-duration: .35s;
+	-o-transition-duration: .35s;
+	transition-duration: .35s;
+	-webkit-transition-property: height;
+	-o-transition-property: height;
+	transition-property: height;
+}
+
+.dropdown {
+	position: relative;
+}
+
+.dropdown-menu {
+	position: absolute;
+	top: 100%;
+	left: 0;
+	z-index: 1000;
+	display: none;
+	float: left;
+	min-width: 160px;
+	padding: 5px 0;
+	margin: 2px 0 0;
+	font-size: 14px;
+	text-align: left;
+	list-style: none;
+	background-color: #fff;
+	-webkit-background-clip: padding-box;
+	background-clip: padding-box;
+	border: 1px solid #ccc;
+	border: 1px solid rgba(0,0,0,.15);
+	border-radius: 1px;
+	-webkit-box-shadow: 0 6px 12px rgb(0 0 0 / 18%);
+	box-shadow: 0 6px 12px rgb(0 0 0 / 18%);
+}
+
+.open > .dropdown-menu {
+	display: block;
+}
+
+.dropdown-menu > li > a {
+	display: block;
+	padding: 3px 20px;
+	clear: both;
+	font-weight: 400;
+	line-height: 2;
+	color: #333;
+	white-space: nowrap;
+
+	text-decoration: none;
+	font-size: medium;
+	font-family: "Helvetica Neue",Helvetica,Arial, sans serif;
+}
+
+.dropdown-menu > li > a {
+	text-transform: uppercase;
+}
+
+.dropdown-menu>li>a:hover {
+	color: #262626;
+	text-decoration: underline;
+	background-color: #f5f5f5;
+}
+
+.masthead-links > span {
+	display: none;
+}
+
+.masthead-links > span > button {
+	font-family: "Source Sans Pro", Helvetica, Arial, sans-serif;
+	border: 1px solid #0f5b92;
+	color: white;
+}
+
+.masthead-links > span > button.open {
+	background-color: white;
+	color: #0f5b92;
+}
+
+.masthead-links > .dropdown > .dropdown-menu {
+	display: none;
+}
+
+#signature-travel-experts.open {
+	background-color: #fff;
+}
+
+#login-form-container {
+	overflow: hidden;
+	position: absolute;
+	right: 0px;
+	top: 51px;
+	height: 0px;
+	width: 600px;
+}
+
+#login-form-container.collapse.in {
+	height: 175px;
+}
+
+#login-form-background {
+	display: none;
+	height: 0px;
+}
+
+#login-form-background.collapse.in {
+	height: 175px;
+}
+
+form[name="frmLogin"] {
+	position: absolute;
+	right: 0;
+	top: 0;
+	border: 1px solid rgb(26, 115, 179);
+	padding: 1rem;
+	z-index: 1000;
+	background-color: white;
+	min-width: 500px;
+}
+
+.member_login {
+	line-height: 26px; /* Normally not needed, but doesn't work in IE w/o it. */
+	padding-left: 2rem;
+	padding-right: 2rem;
+}
+
+.masthead-form_3UpOnDesktop {
+	display: flex;
+}
+
+.masthead-form-row {
+	margin-bottom: inherit;
+	float: unset;
+}
+ 
+@font-face {
+   font-family: JustLovelySlanted;
+   src: url(/fonts/JustLovelySlanted.ttf);
+}
+
+.JustLovely {
+    font-family: JustLovelySlanted;
+    color: white;
+    white-space: nowrap;
+    text-shadow: 2px 2px #333;
+}
+
+@media screen and (min-width: 584px) {
+	#login-form-background {
+		display: block;
+	}
+
+	.masthead-links > span {
+		display: inline;
+	}
+
+	.navmenu-mobile form {
+		display: none;
+	}
+
+	.mobile-member-login {
+		display: none;
+	}
+}
+
+@media screen and (min-width: 740px) {
+	.masthead-container {
+		margin: 0 4rem;
+	}
+}
+
+@media screen and (min-width: 1500px) {
+	.masthead-container {
+		margin: 0 8rem;
+	}
+}
+
+@media screen and (min-width: 1340px) {
+	.navmenu-button {
+		display: none;
+	}
+
+	.masthead-links a.masthead-link {
+		display: inline;
+	}
+
+	.masthead-links > .dropdown.open > .dropdown-menu {
+		display: inline;
+	}
+}
